@@ -1,0 +1,1288 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10243a">
+  <meta name="description" content="Njitchoua Simon Elisé — Recherche en intelligence artificielle scientifique, PINNs et méthodes numériques pour les équations aux dérivées partielles.">
+  <title>Njtchoua Simon Elisé — Intelligence artificielle scientifique</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #10243a;
+      --navy-soft: #193650;
+      --teal: #16817d;
+      --teal-light: #e6f3f1;
+      --ink: #263647;
+      --muted: #657586;
+      --line: #e1e7eb;
+      --paper: #ffffff;
+      --surface: #f6f8fa;
+      --max-width: 1120px;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--teal);
+      text-decoration: none;
+    }
+
+    a:hover { color: var(--navy); }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    button { font: inherit; }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -.4px;
+      white-space: nowrap;
+    }
+
+    .brand span { color: var(--teal); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 23px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 21px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--teal); }
+
+    .language-button {
+      min-width: 42px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: var(--navy);
+      background: white;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .language-button:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+      color: white;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 440px;
+      height: 440px;
+      right: -180px;
+      top: -220px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 45px rgba(255,255,255,.025),
+        0 0 0 90px rgba(255,255,255,.02);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+      padding: 100px 0 105px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #9bd4ce;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 25px;
+      height: 2px;
+      background: #70c0b8;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 800px;
+      margin: 24px 0 22px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(39px, 5.4vw, 66px);
+      font-weight: 500;
+      line-height: 1.16;
+      letter-spacing: -1.6px;
+    }
+
+    .hero-description {
+      max-width: 690px;
+      color: #d0dce5;
+      font-size: 16px;
+      line-height: 1.95;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 27px;
+    }
+
+    .hero-tag {
+      padding: 6px 11px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 5px;
+      color: #e1eaf0;
+      font-size: 11px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 45px;
+      padding: 10px 17px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .button-primary {
+      background: #b4e0da;
+      color: var(--navy);
+    }
+
+    .button-primary:hover {
+      background: white;
+      color: var(--navy);
+    }
+
+    .button-outline {
+      border-color: rgba(255,255,255,.3);
+      color: white;
+    }
+
+    .button-outline:hover {
+      border-color: white;
+      color: white;
+      background: rgba(255,255,255,.06);
+    }
+
+    .section { padding: 82px 0; }
+
+    .section-muted {
+      background: var(--surface);
+      border-top: 1px solid #edf0f3;
+      border-bottom: 1px solid #edf0f3;
+    }
+
+    .section-heading {
+      max-width: 720px;
+      margin-bottom: 37px;
+    }
+
+    .section-label {
+      margin-bottom: 10px;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      color: var(--navy);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(29px, 3vw, 39px);
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -.5px;
+    }
+
+    .section-intro {
+      margin-bottom: 0;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(240px, .8fr);
+      gap: 58px;
+      align-items: start;
+    }
+
+    .prose p { color: #4e5f70; }
+
+    .profile-card {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+    }
+
+    .profile-card h3 {
+      margin-bottom: 19px;
+      color: var(--navy);
+      font-size: 15px;
+    }
+
+    .profile-item {
+      padding: 13px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .profile-item:first-of-type { border-top: 0; }
+
+    .profile-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+
+    .profile-value {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .research-card {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .research-card:hover {
+      border-color: #a7ceca;
+      transform: translateY(-2px);
+    }
+
+    .card-number {
+      margin-bottom: 19px;
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    h3 {
+      margin-bottom: 11px;
+      color: var(--navy);
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .research-card p, .project-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 19px;
+    }
+
+    .chip {
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: var(--teal-light);
+      color: #226c68;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .project-list {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .project-type {
+      color: var(--teal);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .project-card h3 { margin-bottom: 7px; }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 13px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .equation-panel {
+      margin-top: 30px;
+      padding: 28px;
+      border-left: 3px solid var(--teal);
+      border-radius: 0 8px 8px 0;
+      background: var(--surface);
+    }
+
+    .equation-title {
+      margin-bottom: 12px;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .equation {
+      overflow-x: auto;
+      padding: 13px 0;
+      color: var(--navy);
+      font-family: Georgia, serif;
+      font-size: 20px;
+    }
+
+    .equation-note {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .publication {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+    }
+
+    .publication-status {
+      display: inline-block;
+      margin-bottom: 13px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: #eef2f5;
+      color: #526273;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    .publication h3 {
+      margin-bottom: 10px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .publication p {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .publication-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 17px;
+    }
+
+    .publication-links a {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .publication-note {
+      margin-top: 17px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(250px, .8fr);
+      gap: 48px;
+    }
+
+    .contact-box {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+    }
+
+    .contact-row {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact-row:last-child { border-bottom: 0; }
+
+    .contact-row strong {
+      display: block;
+      color: var(--navy);
+      font-size: 12px;
+    }
+
+    .contact-row a, .contact-row span {
+      overflow-wrap: anywhere;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .contact-row a:hover { color: var(--teal); }
+
+    .contact-note {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer {
+      padding: 24px 0;
+      border-top: 1px solid var(--line);
+      background: white;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    footer p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer-top {
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    :focus-visible {
+      outline: 3px solid #77c6bd;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .nav { align-items: flex-start; padding: 17px 0; }
+      .nav-right { gap: 13px; }
+      .nav-links { gap: 11px; }
+      .nav-links a { font-size: 11px; }
+      .about-grid { gap: 30px; }
+    }
+
+    @media (max-width: 680px) {
+      .container { width: min(100% - 32px, var(--max-width)); }
+      .nav { flex-wrap: wrap; align-items: center; }
+      .nav-right { width: 100%; justify-content: space-between; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 10px; }
+      .hero-inner { padding: 69px 0 76px; }
+      h1 { letter-spacing: -.8px; }
+      .hero-description { font-size: 14px; }
+      .section { padding: 60px 0; }
+      .about-grid, .research-grid, .contact-grid { grid-template-columns: 1fr; }
+      .about-grid { gap: 25px; }
+      .project-card { grid-template-columns: 1fr; gap: 8px; }
+      .equation-panel { padding: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Njitchoua Simon Elisé — accueil">
+        NJITCHOUA SIMON <span>ELISÉ</span>
+      </a>
+
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Navigation principale">
+          <a href="#about" data-i18n="navAbout">À propos</a>
+          <a href="#research" data-i18n="navResearch">Recherche</a>
+          <a href="#projects" data-i18n="navProjects">Projets</a>
+          <a href="#publications" data-i18n="navPublications">Publications</a>
+          <a href="#contact" data-i18n="navContact">Contact</a>
+        </nav>
+
+        <button
+          id="langBtn"
+          class="language-button"
+          type="button"
+          aria-label="Switch to English"
+          aria-pressed="false"
+        >EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-inner">
+          <div class="eyebrow" data-i18n="heroEyebrow">
+            Recherche en intelligence artificielle
+          </div>
+
+          <h1 data-i18n="heroTitle">
+            Modéliser les phénomènes physiques. Améliorer la simulation scientifique.
+          </h1>
+
+          <p class="hero-description" data-i18n="heroDescription">
+            Je m'intéresse à l'intelligence artificielle scientifique, en particulier
+            aux réseaux de neurones informés par la physique et aux méthodes numériques
+            pour la résolution des équations aux dérivées partielles.
+          </p>
+
+          <div class="hero-tags">
+            <span class="hero-tag">Scientific Machine Learning</span>
+            <span class="hero-tag">Physics-Informed Neural Networks</span>
+            <span class="hero-tag">Méthodes spectrales</span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#research" data-i18n="heroPrimary">
+              Découvrir mes recherches
+            </a>
+            <a class="button button-outline" href="#contact" data-i18n="heroSecondary">
+              Me contacter
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label" data-i18n="aboutLabel">Profil</div>
+          <h2 data-i18n="aboutTitle">À propos de moi</h2>
+          <p class="section-intro" data-i18n="aboutIntro">
+            Un parcours à l'intersection des mathématiques, de l'informatique
+            et de la modélisation scientifique.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="prose">
+            <p data-i18n="aboutP1">
+              Je termine un Master 2 Recherche en Intelligence Artificielle à
+              l'École Nationale Supérieure Polytechnique de Douala, Université
+              de Douala, au Cameroun. Mon intérêt scientifique porte sur les
+              méthodes d'apprentissage capables d'intégrer des connaissances
+              mathématiques et physiques dans leurs représentations.
+            </p>
+
+            <p data-i18n="aboutP2">
+              Je travaille notamment sur les Physics-Informed Neural Networks
+              (PINNs) pour les équations aux dérivées partielles. Je m'intéresse
+              à la manière dont les bases polynomiales, les méthodes spectrales
+              et les architectures neuronales peuvent contribuer à améliorer
+              la précision, la stabilité et le coût des simulations.
+            </p>
+
+            <p data-i18n="aboutP3">
+              Mon objectif est de développer des méthodes numériques et
+              d'apprentissage scientifique rigoureuses, interprétables et
+              utiles pour des problèmes concrets en sciences et en ingénierie.
+            </p>
+          </div>
+
+          <aside class="profile-card">
+            <h3 data-i18n="profileTitle">Informations académiques</h3>
+
+            <div class="profile-item">
+              <span class="profile-label" data-i18n="profileEducationLabel">Formation</span>
+              <span class="profile-value" data-i18n="profileEducation">
+                Master 2 Recherche en Intelligence Artificielle
+              </span>
+            </div>
+
+            <div class="profile-item">
+              <span class="profile-label" data-i18n="profileInstitutionLabel">Établissement</span>
+              <span class="profile-value" data-i18n="profileInstitution">
+                ENSPD — Université de Douala
+              </span>
+            </div>
+
+            <div class="profile-item">
+              <span class="profile-label" data-i18n="profileLocationLabel">Localisation</span>
+              <span class="profile-value" data-i18n="profileLocation">Douala, Cameroun</span>
+            </div>
+
+            <div class="profile-item">
+              <span class="profile-label" data-i18n="profileFocusLabel">Domaine principal</span>
+              <span class="profile-value" data-i18n="profileFocus">
+                Apprentissage automatique scientifique
+              </span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="research">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label" data-i18n="researchLabel">Axes scientifiques</div>
+          <h2 data-i18n="researchTitle">Mes intérêts de recherche</h2>
+          <p class="section-intro" data-i18n="researchIntro">
+            Je cherche à combiner la structure mathématique des problèmes
+            scientifiques avec les capacités d'approximation des réseaux neuronaux.
+          </p>
+        </div>
+
+        <div class="research-grid">
+          <article class="research-card">
+            <div class="card-number">01 / PINNs</div>
+            <h3 data-i18n="research1Title">Réseaux de neurones informés par la physique</h3>
+            <p data-i18n="research1Text">
+              Étude des méthodes PINNs pour résoudre des équations aux dérivées
+              partielles, avec une attention particulière à la précision,
+              à la stabilité de l'entraînement et à l'équilibre des fonctions de perte.
+            </p>
+            <div class="chips">
+              <span class="chip">PDEs</span>
+              <span class="chip">Optimization</span>
+              <span class="chip">Inverse problems</span>
+            </div>
+          </article>
+
+          <article class="research-card">
+            <div class="card-number">02 / POLYNOMIALS</div>
+            <h3 data-i18n="research2Title">Polynômes orthogonaux et méthodes spectrales</h3>
+            <p data-i18n="research2Text">
+              Exploration des bases de Chebyshev et des représentations
+              polynomiales pour construire des modèles plus adaptés à la structure
+              des solutions de problèmes physiques.
+            </p>
+            <div class="chips">
+              <span class="chip">Chebyshev</span>
+              <span class="chip">Spectral methods</span>
+              <span class="chip">Approximation</span>
+            </div>
+          </article>
+
+          <article class="research-card">
+            <div class="card-number">03 / NUMERICS</div>
+            <h3 data-i18n="research3Title">Analyse numérique et simulation scientifique</h3>
+            <p data-i18n="research3Text">
+              Comparaison de modèles d'apprentissage avec des références numériques,
+              en considérant l'erreur, la robustesse, le coût de calcul et la
+              généralisation.
+            </p>
+            <div class="chips">
+              <span class="chip">Numerical analysis</span>
+              <span class="chip">Scientific computing</span>
+            </div>
+          </article>
+
+          <article class="research-card">
+            <div class="card-number">04 / HYBRID MODELS</div>
+            <h3 data-i18n="research4Title">Modèles hybrides et jumeaux numériques</h3>
+            <p data-i18n="research4Text">
+              Intérêt pour les approches qui combinent des modèles physiques,
+              des méthodes numériques et l'apprentissage automatique pour
+              accélérer la simulation et soutenir la prise de décision.
+            </p>
+            <div class="chips">
+              <span class="chip">Hybrid models</span>
+              <span class="chip">Surrogate models</span>
+              <span class="chip">Digital twins</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="equation-panel">
+          <div class="equation-title" data-i18n="equationTitle">
+            Principe général des PINNs
+          </div>
+          <div class="equation" aria-label="Équation résiduelle d'un réseau informé par la physique">
+            \(\mathcal{N}_{\theta}[u](x,t)=0\)
+          </div>
+          <p class="equation-note" data-i18n="equationNote">
+            Le modèle est entraîné pour satisfaire l'équation différentielle,
+            les conditions initiales et les conditions aux limites du problème étudié.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label" data-i18n="projectsLabel">Travaux</div>
+          <h2 data-i18n="projectsTitle">Projets et travaux scientifiques</h2>
+          <p class="section-intro" data-i18n="projectsIntro">
+            Quelques axes de travail représentatifs de mes intérêts.
+            Les descriptions pourront être complétées par les résultats,
+            les dépôts de code et les rapports correspondants.
+          </p>
+        </div>
+
+        <div class="project-list">
+          <article class="project-card">
+            <div class="project-type" data-i18n="project1Type">Projet de recherche</div>
+            <div>
+              <h3 data-i18n="project1Title">PINNs pour les équations aux dérivées partielles</h3>
+              <p data-i18n="project1Text">
+                Étude expérimentale de réseaux de neurones informés par la physique
+                pour des problèmes d'équations différentielles. L'évaluation porte
+                notamment sur l'erreur de solution, le comportement de l'optimisation
+                et la comparaison avec des solutions de référence.
+              </p>
+              <div class="chips">
+                <span class="chip">PyTorch</span>
+                <span class="chip">PDEs</span>
+                <span class="chip">Numerical validation</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-type" data-i18n="project2Type">Architecture neuronale</div>
+            <div>
+              <h3 data-i18n="project2Title">Réseaux neuronaux à base de polynômes de Chebyshev</h3>
+              <p data-i18n="project2Text">
+                Exploration de représentations polynomiales au sein d'architectures
+                neuronales pour l'apprentissage scientifique, avec pour objectif
+                de mieux intégrer la structure mathématique du problème.
+              </p>
+              <div class="chips">
+                <span class="chip">Chebyshev polynomials</span>
+                <span class="chip">Scientific ML</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-type" data-i18n="project3Type">Méthodologie</div>
+            <div>
+              <h3 data-i18n="project3Title">Évaluation rigoureuse des modèles scientifiques</h3>
+              <p data-i18n="project3Text">
+                Intérêt pour des protocoles d'évaluation fondés sur les erreurs
+                quantitatives, la stabilité, la robustesse, le temps de calcul
+                et la comparaison à des méthodes numériques classiques.
+              </p>
+              <div class="chips">
+                <span class="chip">L2 error</span>
+                <span class="chip">Stability</span>
+                <span class="chip">Computational cost</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="publications">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label" data-i18n="publicationsLabel">Production scientifique</div>
+          <h2 data-i18n="publicationsTitle">Publications et manuscrits</h2>
+          <p class="section-intro" data-i18n="publicationsIntro">
+            Les références ci-dessous doivent correspondre à des travaux réels
+            et vérifiables. Aucun article ne doit être présenté comme publié
+            sans confirmation de sa publication.
+          </p>
+        </div>
+
+        <article class="publication">
+          <span class="publication-status" data-i18n="publicationStatus">
+            À compléter
+          </span>
+          <h3 data-i18n="publicationPlaceholderTitle">
+            Ajouter ici le titre exact d'un article
+          </h3>
+          <p data-i18n="publicationPlaceholderAuthors">
+            Auteur(s) : renseigner les noms dans l'ordre officiel.
+          </p>
+          <p data-i18n="publicationPlaceholderVenue">
+            Revue ou conférence, année, volume et pages si disponibles.
+          </p>
+          <div class="publication-links">
+            <a href="#contact" data-i18n="publicationContact">Demander une copie</a>
+          </div>
+          <p class="publication-note" data-i18n="publicationNote">
+            Remplace cet exemple par une référence réelle. Si tu n'as pas encore
+            de publication, indique honnêtement « Manuscrits en préparation »
+            ou retire cette fiche.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="methodology">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label" data-i18n="methodLabel">Approche</div>
+          <h2 data-i18n="methodTitle">Une démarche guidée par les mathématiques</h2>
+          <p class="section-intro" data-i18n="methodIntro">
+            L'apprentissage automatique scientifique ne doit pas se limiter
+            à produire une approximation : il doit être évalué au regard
+            des propriétés du problème qu'il cherche à résoudre.
+          </p>
+        </div>
+
+        <div class="research-grid">
+          <article class="research-card">
+            <div class="card-number">01</div>
+            <h3 data-i18n="method1Title">Formulation du problème</h3>
+            <p data-i18n="method1Text">
+              Identifier l'équation, le domaine, les conditions initiales et
+              aux limites, ainsi que les propriétés attendues de la solution.
+            </p>
+          </article>
+
+          <article class="research-card">
+            <div class="card-number">02</div>
+            <h3 data-i18n="method2Title">Conception du modèle</h3>
+            <p data-i18n="method2Text">
+              Choisir l'architecture, la représentation et les fonctions de perte
+              en fonction de la structure mathématique du problème.
+            </p>
+          </article>
+
+          <article class="research-card">
+            <div class="card-number">03</div>
+            <h3 data-i18n="method3Title">Validation numérique</h3>
+            <p data-i18n="method3Text">
+              Comparer les résultats à des solutions analytiques ou à des
+              références numériques fiables lorsque celles-ci sont disponibles.
+            </p>
+          </article>
+
+          <article class="research-card">
+            <div class="card-number">04</div>
+            <h3 data-i18n="method4Title">Analyse des limites</h3>
+            <p data-i18n="method4Text">
+              Examiner l'erreur, la stabilité, la sensibilité aux paramètres,
+              le coût de calcul et les limites de généralisation.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="contact">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label" data-i18n="contactLabel">Échanges scientifiques</div>
+          <h2 data-i18n="contactTitle">Entrons en contact</h2>
+          <p class="section-intro" data-i18n="contactIntro">
+            Je suis intéressé par les échanges autour de l'intelligence artificielle
+            scientifique, des PINNs, des méthodes numériques et des possibilités
+            de recherche aux cycles supérieurs.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div>
+            <h3 data-i18n="contactSubTitle">Collaborations et opportunités</h3>
+            <p class="contact-note" data-i18n="contactText">
+              Pour discuter d'un projet de recherche, d'une collaboration
+              scientifique ou d'une possibilité de poursuite d'études,
+              tu peux me contacter par courriel.
+            </p>
+          </div>
+
+          <div class="contact-box">
+            <div class="contact-row">
+              <strong data-i18n="emailLabel">Courriel</strong>
+              <a href="mailto:YOUR.EMAIL@example.com">simonnjih04gmail.com</a>
+            </div>
+            <div class="contact-row">
+              <strong data-i18n="institutionLabel">Institution</strong>
+              <span>ENSPD, Université de Douala, Cameroun</span>
+            </div>
+            <div class="contact-row">
+              <strong>LinkedIn</strong>
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer"
+                 data-i18n="linkedinLink">https://www.linkedin.com/in/elis%C3%A9-simon-njitchoua-151115303/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3BGjc7Pl6RRbeJ%2FyBAMS%2Bq5w%3D%3D</a>
+            </div>
+            <div class="contact-row">
+              <strong>GitHub</strong>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+                 data-i18n="githubLink">Configurer mon profil GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Njitchoua Simon Elisé</p>
+      <p data-i18n="footerText">Intelligence artificielle scientifique · Recherche et modélisation</p>
+      <a class="footer-top" href="#home" data-i18n="backTop">Retour en haut ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const translations = {
+        fr: {
+          navAbout: "À propos",
+          navResearch: "Recherche",
+          navProjects: "Projets",
+          navPublications: "Publications",
+          navContact: "Contact",
+
+          heroEyebrow: "Recherche en intelligence artificielle",
+          heroTitle: "Modéliser les phénomènes physiques. Améliorer la simulation scientifique.",
+          heroDescription: "Je m'intéresse à l'intelligence artificielle scientifique, en particulier aux réseaux de neurones informés par la physique et aux méthodes numériques pour la résolution des équations aux dérivées partielles.",
+          heroPrimary: "Découvrir mes recherches",
+          heroSecondary: "Me contacter",
+
+          aboutLabel: "Profil",
+          aboutTitle: "À propos de moi",
+          aboutIntro: "Un parcours à l'intersection des mathématiques, de l'informatique et de la modélisation scientifique.",
+          aboutP1: "Je termine un Master 2 Recherche en Intelligence Artificielle à l'École Nationale Supérieure Polytechnique de Douala, Université de Douala, au Cameroun. Mon intérêt scientifique porte sur les méthodes d'apprentissage capables d'intégrer des connaissances mathématiques et physiques dans leurs représentations.",
+          aboutP2: "Je travaille notamment sur les Physics-Informed Neural Networks (PINNs) pour les équations aux dérivées partielles. Je m'intéresse à la manière dont les bases polynomiales, les méthodes spectrales et les architectures neuronales peuvent contribuer à améliorer la précision, la stabilité et le coût des simulations.",
+          aboutP3: "Mon objectif est de développer des méthodes numériques et d'apprentissage scientifique rigoureuses, interprétables et utiles pour des problèmes concrets en sciences et en ingénierie.",
+          profileTitle: "Informations académiques",
+          profileEducationLabel: "Formation",
+          profileEducation: "Master 2 Recherche en Intelligence Artificielle",
+          profileInstitutionLabel: "Établissement",
+          profileInstitution: "ENSPD — Université de Douala",
+          profileLocationLabel: "Localisation",
+          profileLocation: "Douala, Cameroun",
+          profileFocusLabel: "Domaine principal",
+          profileFocus: "Apprentissage automatique scientifique",
+
+          researchLabel: "Axes scientifiques",
+          researchTitle: "Mes intérêts de recherche",
+          researchIntro: "Je cherche à combiner la structure mathématique des problèmes scientifiques avec les capacités d'approximation des réseaux neuronaux.",
+          research1Title: "Réseaux de neurones informés par la physique",
+          research1Text: "Étude des méthodes PINNs pour résoudre des équations aux dérivées partielles, avec une attention particulière à la précision, à la stabilité de l'entraînement et à l'équilibre des fonctions de perte.",
+          research2Title: "Polynômes orthogonaux et méthodes spectrales",
+          research2Text: "Exploration des bases de Chebyshev et des représentations polynomiales pour construire des modèles plus adaptés à la structure des solutions de problèmes physiques.",
+          research3Title: "Analyse numérique et simulation scientifique",
+          research3Text: "Comparaison de modèles d'apprentissage avec des références numériques, en considérant l'erreur, la robustesse, le coût de calcul et la généralisation.",
+          research4Title: "Modèles hybrides et jumeaux numériques",
+          research4Text: "Intérêt pour les approches qui combinent des modèles physiques, des méthodes numériques et l'apprentissage automatique pour accélérer la simulation et soutenir la prise de décision.",
+          equationTitle: "Principe général des PINNs",
+          equationNote: "Le modèle est entraîné pour satisfaire l'équation différentielle, les conditions initiales et les conditions aux limites du problème étudié.",
+
+          projectsLabel: "Travaux",
+          projectsTitle: "Projets et travaux scientifiques",
+          projectsIntro: "Quelques axes de travail représentatifs de mes intérêts. Les descriptions pourront être complétées par les résultats, les dépôts de code et les rapports correspondants.",
+          project1Type: "Projet de recherche",
+          project1Title: "PINNs pour les équations aux dérivées partielles",
+          project1Text: "Étude expérimentale de réseaux de neurones informés par la physique pour des problèmes d'équations différentielles. L'évaluation porte notamment sur l'erreur de solution, le comportement de l'optimisation et la comparaison avec des solutions de référence.",
+          project2Type: "Architecture neuronale",
+          project2Title: "Réseaux neuronaux à base de polynômes de Chebyshev",
+          project2Text: "Exploration de représentations polynomiales au sein d'architectures neuronales pour l'apprentissage scientifique, avec pour objectif de mieux intégrer la structure mathématique du problème.",
+          project3Type: "Méthodologie",
+          project3Title: "Évaluation rigoureuse des modèles scientifiques",
+          project3Text: "Intérêt pour des protocoles d'évaluation fondés sur les erreurs quantitatives, la stabilité, la robustesse, le temps de calcul et la comparaison à des méthodes numériques classiques.",
+
+          publicationsLabel: "Production scientifique",
+          publicationsTitle: "Publications et manuscrits",
+          publicationsIntro: "Les références ci-dessous doivent correspondre à des travaux réels et vérifiables. Aucun article ne doit être présenté comme publié sans confirmation de sa publication.",
+          publicationStatus: "À compléter",
+          publicationPlaceholderTitle: "Ajouter ici le titre exact d'un article",
+          publicationPlaceholderAuthors: "Auteur(s) : renseigner les noms dans l'ordre officiel.",
+          publicationPlaceholderVenue: "Revue ou conférence, année, volume et pages si disponibles.",
+          publicationContact: "Demander une copie",
+          publicationNote: "Remplace cet exemple par une référence réelle. Si tu n'as pas encore de publication, indique honnêtement « Manuscrits en préparation » ou retire cette fiche.",
+
+          methodLabel: "Approche",
+          methodTitle: "Une démarche guidée par les mathématiques",
+          methodIntro: "L'apprentissage automatique scientifique ne doit pas se limiter à produire une approximation : il doit être évalué au regard des propriétés du problème qu'il cherche à résoudre.",
+          method1Title: "Formulation du problème",
+          method1Text: "Identifier l'équation, le domaine, les conditions initiales et aux limites, ainsi que les propriétés attendues de la solution.",
+          method2Title: "Conception du modèle",
+          method2Text: "Choisir l'architecture, la représentation et les fonctions de perte en fonction de la structure mathématique du problème.",
+          method3Title: "Validation numérique",
+          method3Text: "Comparer les résultats à des solutions analytiques ou à des références numériques fiables lorsque celles-ci sont disponibles.",
+          method4Title: "Analyse des limites",
+          method4Text: "Examiner l'erreur, la stabilité, la sensibilité aux paramètres, le coût de calcul et les limites de généralisation.",
+
+          contactLabel: "Échanges scientifiques",
+          contactTitle: "Entrons en contact",
+          contactIntro: "Je suis intéressé par les échanges autour de l'intelligence artificielle scientifique, des PINNs, des méthodes numériques et des possibilités de recherche aux cycles supérieurs.",
+          contactSubTitle: "Collaborations et opportunités",
+          contactText: "Pour discuter d'un projet de recherche, d'une collaboration scientifique ou d'une possibilité de poursuite d'études, tu peux me contacter par courriel.",
+          emailLabel: "Courriel",
+          institutionLabel: "Institution",
+          linkedinLink: "Elisé Simon Njitchoua",
+          githubLink: "Configurer mon profil GitHub",
+          footerText: "Intelligence artificielle scientifique · Recherche et modélisation",
+          backTop: "Retour en haut ↑"
+        },
+
+        en: {
+          navAbout: "About",
+          navResearch: "Research",
+          navProjects: "Projects",
+          navPublications: "Publications",
+          navContact: "Contact",
+
+          heroEyebrow: "Artificial intelligence research",
+          heroTitle: "Model physical phenomena. Improve scientific simulation.",
+          heroDescription: "My interests lie in scientific machine learning, particularly physics-informed neural networks and numerical methods for solving partial differential equations.",
+          heroPrimary: "Explore my research",
+          heroSecondary: "Get in touch",
+
+          aboutLabel: "Profile",
+          aboutTitle: "About me",
+          aboutIntro: "A research path at the intersection of mathematics, computer science and scientific modelling.",
+          aboutP1: "I am completing a research-oriented Master 2 in Artificial Intelligence at the École Nationale Supérieure Polytechnique de Douala, University of Douala, Cameroon. My research interests focus on learning methods that integrate mathematical and physical knowledge into their representations.",
+          aboutP2: "My work particularly concerns Physics-Informed Neural Networks (PINNs) for partial differential equations. I am interested in how polynomial bases, spectral methods and neural architectures can help improve simulation accuracy, stability and computational cost.",
+          aboutP3: "My goal is to develop rigorous and interpretable numerical and machine learning methods that are useful for practical problems in science and engineering.",
+          profileTitle: "Academic profile",
+          profileEducationLabel: "Education",
+          profileEducation: "Research Master's in Artificial Intelligence",
+          profileInstitutionLabel: "Institution",
+          profileInstitution: "ENSPD — University of Douala",
+          profileLocationLabel: "Location",
+          profileLocation: "Douala, Cameroon",
+          profileFocusLabel: "Main field",
+          profileFocus: "Scientific machine learning",
+
+          researchLabel: "Research areas",
+          researchTitle: "Research interests",
+          researchIntro: "I aim to combine the mathematical structure of scientific problems with the approximation capabilities of neural networks.",
+          research1Title: "Physics-informed neural networks",
+          research1Text: "Study of PINN methods for solving partial differential equations, with particular attention to accuracy, training stability and the balance between loss terms.",
+          research2Title: "Orthogonal polynomials and spectral methods",
+          research2Text: "Exploration of Chebyshev bases and polynomial representations to build models better suited to the structure of physical solutions.",
+          research3Title: "Numerical analysis and scientific simulation",
+          research3Text: "Comparison of learning models with numerical references, considering error, robustness, computational cost and generalisation.",
+          research4Title: "Hybrid models and digital twins",
+          research4Text: "Interest in approaches combining physical models, numerical methods and machine learning to accelerate simulation and support decision-making.",
+          equationTitle: "A general principle of PINNs",
+          equationNote: "The model is trained to satisfy the differential equation, initial conditions and boundary conditions of the problem being studied.",
+
+          projectsLabel: "Research work",
+          projectsTitle: "Projects and scientific work",
+          projectsIntro: "A selection of work reflecting my interests. These descriptions can be expanded with results, code repositories and related reports.",
+          project1Type: "Research project",
+          project1Title: "PINNs for partial differential equations",
+          project1Text: "Experimental study of physics-informed neural networks for differential equation problems. Evaluation includes solution error, optimisation behaviour and comparison with reference solutions.",
+          project2Type: "Neural architecture",
+          project2Title: "Neural networks based on Chebyshev polynomials",
+          project2Text: "Exploration of polynomial representations in neural architectures for scientific machine learning, aiming to better incorporate the mathematical structure of a problem.",
+          project3Type: "Methodology",
+          project3Title: "Rigorous evaluation of scientific models",
+          project3Text: "Interest in evaluation protocols based on quantitative errors, stability, robustness, computational time and comparison with classical numerical methods.",
+
+          publicationsLabel: "Research output",
+          publicationsTitle: "Publications and manuscripts",
+          publicationsIntro: "The references below should correspond to real and verifiable work. An article should not be described as published unless its publication has been confirmed.",
+          publicationStatus: "To be completed",
+          publicationPlaceholderTitle: "Add the exact title of an article here",
+          publicationPlaceholderAuthors: "Author(s): enter names in the official order.",
+          publicationPlaceholderVenue: "Journal or conference, year, volume and pages, if available.",
+          publicationContact: "Request a copy",
+          publicationNote: "Replace this example with a real reference. If you do not yet have a publication, state “Manuscripts in preparation” accurately or remove this entry.",
+
+          methodLabel: "Approach",
+          methodTitle: "A mathematics-guided approach",
+          methodIntro: "Scientific machine learning should do more than produce an approximation: it should be evaluated against the properties of the problem it aims to solve.",
+          method1Title: "Problem formulation",
+          method1Text: "Identify the equation, domain, initial and boundary conditions, and the expected properties of the solution.",
+          method2Title: "Model design",
+          method2Text: "Choose the architecture, representation and loss functions according to the mathematical structure of the problem.",
+          method3Title: "Numerical validation",
+          method3Text: "Compare results with analytical solutions or reliable numerical references whenever they are available.",
+          method4Title: "Limitations analysis",
+          method4Text: "Examine error, stability, parameter sensitivity, computational cost and generalisation limits.",
+
+          contactLabel: "Scientific exchange",
+          contactTitle: "Get in touch",
+          contactIntro: "I welcome discussions about scientific machine learning, PINNs, numerical methods and research opportunities in graduate studies.",
+          contactSubTitle: "Collaboration and opportunities",
+          contactText: "For discussions about research projects, scientific collaboration or graduate study opportunities, you can contact me by email.",
+          emailLabel: "Email",
+          institutionLabel: "Institution",
+          linkedinLink: "Elisé Simon Njitchoua",
+          githubLink: "Set up my GitHub profile",
+          footerText: "Scientific machine learning · Research and modelling",
+          backTop: "Back to top ↑"
+        }
+      };
+
+      const languageButton = document.getElementById("langBtn");
+      let currentLanguage = "fr";
+
+      function setLanguage(language) {
+        if (!Object.prototype.hasOwnProperty.call(translations, language)) {
+          return;
+        }
+
+        currentLanguage = language;
+        document.documentElement.lang = language;
+
+        document.querySelectorAll("[data-i18n]").forEach((element) => {
+          const key = element.getAttribute("data-i18n");
+          const translatedText = translations[language][key];
+
+          if (typeof translatedText === "string") {
+            element.textContent = translatedText;
+          }
+        });
+
+        languageButton.textContent = language === "fr" ? "EN" : "FR";
+        languageButton.setAttribute(
+          "aria-label",
+          language === "fr" ? "Switch to English" : "Passer en français"
+        );
+        languageButton.setAttribute(
+          "aria-pressed",
+          language === "en" ? "true" : "false"
+        );
+
+        document.title = language === "fr"
+          ? "Njitchoua Simon Elisé — Intelligence artificielle scientifique"
+          : "Njitchoua Simon Elisé — Scientific Machine Learning";
+
+        document.querySelector('meta[name="description"]').setAttribute(
+          "content",
+          language === "fr"
+            ? "Njitchoua Simon Elisé — Recherche en intelligence artificielle scientifique, PINNs et méthodes numériques pour les équations aux dérivées partielles."
+            : "Njitchoua Simon Elisé — Research in scientific machine learning, PINNs and numerical methods for partial differential equations."
+        );
+      }
+
+      languageButton.addEventListener("click", () => {
+        setLanguage(currentLanguage === "fr" ? "en" : "fr");
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      setLanguage("fr");
+    })();
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$','$']],
+        displayMath: [['\\[', '\\]']]
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</body>
+</html>
